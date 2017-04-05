@@ -1,42 +1,5 @@
 import { generateTypeDef } from '../lib/TypeDefGenerator'
-
-const defaultCrud = {
-  create: true,
-  read: true,
-  update: true,
-  delete: true,
-}
-
-const fieldsConfig = {
-  inputFields: {
-    username: {
-      type: 'String!',
-    },
-    firstName: {
-      type: 'String',
-    },
-    lastName: {
-      type: 'String',
-    },
-    enabled: {
-      type: 'Boolean',
-    },
-    age: {
-      type: 'Int',
-    },
-  },
-  typeFields: {
-    username: {
-      type: 'String!',
-    },
-    fullName: {
-      type: 'String',
-    },
-    age: {
-      type: 'Int',
-    },
-  },
-}
+import { defaultCrud, fieldsConfig } from './testData'
 
 Tinytest.add('Graphqlizer - TypeDefGenerator - All', function (test) {
   const userTypeDefAll = generateTypeDef({
