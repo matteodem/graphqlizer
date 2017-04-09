@@ -2,16 +2,16 @@ import {
   mapSchemaToTypeFields,
 } from '../lib/TypeFieldsStructureMapper'
 
-Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - Complex', function (test) {
-  const CompanySchema = new SimpleSchema({
-    id: {
-      type: String,
-    },
-    name: {
-      type: String,
-    },
-  })
+const CompanySchema = new SimpleSchema({
+  id: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+})
 
+Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - Complex', function (test) {
   const mappedFields = mapSchemaToTypeFields(
     new SimpleSchema({
       age: {
@@ -60,4 +60,18 @@ Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - Complex', function (test
   test.equal(mappedFields.company.type, 'Company')
   test.equal(mappedFields.company.resolve(), { id: 'companyId', name: 'wow' })
   test.isUndefined(mappedFields.ignoredField)
+})
+
+Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - Complex type', function (test) {
+  try {
+    mapSchemaToTypeFields(new SimpleSchema({
+      company: {
+        type: CompanySchema,
+      },
+    }))
+
+    test.fail()
+  } catch(e) {
+    test.ok()
+  }
 })
