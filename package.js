@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'matteodem:graphqlizer',
-  version: '0.0.1',
-  summary: '',
-  git: '',
+  name: 'easy:graphqlizer',
+  version: '0.1.0',
+  summary: 'Make your mongo collections accessible over a graphql endpoint',
+  git: 'https://github.com/matteodem/graphqlizer',
   documentation: 'README.md',
 })
 
@@ -14,7 +14,7 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use(['ecmascript', 'tinytest', 'modules', 'aldeed:simple-schema@1.5.3'])
-  api.use('matteodem:graphqlizer')
+  api.use('easy:graphqlizer')
   api.addFiles([
     './tests/TypeDefGeneratorTest.js',
     './tests/ResolversGeneratorTest.js',
