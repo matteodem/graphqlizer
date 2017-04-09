@@ -1,6 +1,6 @@
 # graphqlizer 
 
-Make your meteor based collections accessible over a graphql endpoint.
+Make your meteor mongo collections accessible over a graphql endpoint.
 
 * Generates simple type definitions + resolvers
 * Uses `check` to validate arguments
@@ -32,3 +32,18 @@ const schema = makeExecutableSchema({
 
 createApolloServer(req => ({ schema }), { graphiql: true })
 ```
+
+## How to install
+
+```bash
+# Install npm packages
+meteor npm install --save apollo-client graphql-server-express express graphql graphql-tools body-parser
+# Install meteor packages
+meteor add apollo aldeed:simple-schema easy:graphqlizer
+```
+
+## How to use
+
+## Further reading
+
+* Relationships

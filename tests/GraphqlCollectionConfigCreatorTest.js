@@ -3,7 +3,7 @@ import {
 } from '../lib/GraphqlCollectionConfigCreator'
 
 const collectionMock = {
-  find: (selector, { limit }) => `find:${limit}`,
+  find: (selector, { limit }) => ({ fetch: () => `find:${limit}` }),
   findOne: ({ _id }) => `findOne:${_id}`,
   insert: ({ age }) => `insert:${age}`,
   update: ({ _id }, { $set: { age } }) => `update:${_id}:${age}`,
@@ -65,17 +65,17 @@ extend type Mutation {
 
   test.equal(
     resolvers.Mutation.createAlien(null, { data: { age: 311, alienname: 'Wow' } }),
-    'insert:311',
+    'findOne:insert:311',
   )
 
   test.equal(
     resolvers.Mutation.updateAlien(null, { _id: 'updateId', data: { age: 315, alienname: 'Wow' } }),
-    'update:updateId:315',
+    'findOne:updateId',
   )
 
   test.equal(
     resolvers.Mutation.deleteAlien(null, { _id: 'deleteId' }),
-    'delete:deleteId',
+    'findOne:deleteId',
   )
 })
 
@@ -170,12 +170,12 @@ extend type Mutation {
 
   test.equal(
     resolvers.Mutation.createAlien(null, { data: { age: 299, alienname: 'Wow' } }),
-    'insert:299',
+    'findOne:insert:299',
   )
 
   test.equal(
     resolvers.Mutation.updateAlien(null, { _id: 'updateI', data: { age: 309, alienname: 'Wow' } }),
-    'update:updateI:309',
+    'findOne:updateI',
   )
 
   test.isUndefined(resolvers.Mutation.deleteAlien)

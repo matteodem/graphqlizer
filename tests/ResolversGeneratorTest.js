@@ -30,12 +30,9 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
         test.equal(opts.limit, 10)
         test.equal(opts.skip, 5)
 
-        return 'listBook'
+        return { fetch: () => 'listBook' }
       },
-      findOne(selector, opts) {
-        test.equal(selector._id, 'getsingleId')
-        test.equal(opts.graphqlFilters[0].key, 'test')
-        test.equal(opts.graphqlFilters[0].value, 'wowzia')
+      findOne() {
         return 'getBook'
       },
     },
@@ -66,7 +63,7 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
       null,
       { data: { username: 'matt', age: 21, firstName: 'mattaya' } },
     ),
-    'createBook'
+    'getBook'
   )
 
   try {
@@ -83,7 +80,7 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
       null,
       { _id: 'idDocUpdate', data: { username: 'mattnew', age: 20 } },
     ),
-    'updateBook',
+    'getBook',
   )
 
   test.equal(
@@ -91,7 +88,7 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
       null,
       { _id: 'idDocToRemove' },
     ),
-    'deleteBook',
+    'getBook',
   )
 })
 
