@@ -19,5 +19,6 @@ Package.onTest(function(api) {
     './tests/TypeDefGeneratorTest.js',
     './tests/ResolversGeneratorTest.js',
     './tests/TypeFieldsStructureMapperTest.js',
+    './tests/GraphqlCollectionConfigCreatorTest.js',
   ], 'server')
 })
