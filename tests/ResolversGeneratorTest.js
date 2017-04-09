@@ -1,21 +1,35 @@
 import { generateResolvers } from '../lib/ResolversGenerator'
-import { defaultCrud, fieldsConfig } from './testData'
+import { defaultCrud, fieldsConfig, inputSimpleSchema } from './testData'
 
 Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
   const resolvers = generateResolvers({
     type: 'Book',
     crud: defaultCrud,
+    inputSchema: inputSimpleSchema,
     collection: {
-      insert() {
+      insert(doc) {
+        test.equal(doc.username, 'matt')
+        test.equal(doc.age, 21)
+        test.equal(doc.firstName, 'mattaya')
+
         return 'createBook'
       },
-      update() {
+      update(selector, updateDoc) {
+        test.equal(selector._id, 'idDocUpdate')
+        test.equal(updateDoc.$set.username, 'mattnew')
+        test.equal(updateDoc.$set.age, 20)
+
         return 'updateBook'
       },
-      delete() {
+      remove(selector) {
+        test.equal(selector._id, 'idDocToRemove')
+
         return 'deleteBook'
       },
-      find() {
+      find(selector, opts) {
+        test.equal(opts.limit, 10)
+        test.equal(opts.skip, 5)
+
         return 'listBook'
       },
       findOne(selector, opts) {
@@ -36,7 +50,65 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
       null,
       { _id: 'getsingleId', filters: [{ key: 'test', value: 'wowzia' }] },
     ),
-    'getBook'
+    'getBook',
   )
-  // TODO: test listUser and rest of crud
-});
+
+  test.equal(
+    resolvers.Query.listBook(
+      null,
+      { limit: 10, offset: 5 },
+    ),
+    'listBook',
+  )
+
+  test.equal(
+    resolvers.Mutation.createBook(
+      null,
+      { data: { username: 'matt', age: 21, firstName: 'mattaya' } },
+    ),
+    'createBook'
+  )
+
+  try {
+    resolvers.Mutation.createBook(
+      null,
+      { data: { foo: 'bar' } },
+    )
+    test.fail()
+  } catch (e) {
+  }
+
+  test.equal(
+    resolvers.Mutation.updateBook(
+      null,
+      { _id: 'idDocUpdate', data: { username: 'mattnew', age: 20 } },
+    ),
+    'updateBook',
+  )
+
+  test.equal(
+    resolvers.Mutation.deleteBook(
+      null,
+      { _id: 'idDocToRemove' },
+    ),
+    'deleteBook',
+  )
+})
+
+Tinytest.add('Graphqlizer - ResolversGenerator - Only Create', function (test) {
+  const resolvers = generateResolvers({
+    type: 'Book',
+    crud: {
+      create: true,
+    },
+    inputSchema: inputSimpleSchema,
+    collection: {},
+    ...fieldsConfig,
+  })
+
+  test.isUndefined(resolvers.Query.getBook)
+  test.isUndefined(resolvers.Query.listBook)
+  test.isUndefined(resolvers.Mutation.updateBook)
+  test.isUndefined(resolvers.Mutation.deleteBook)
+  test.equal(typeof resolvers.Mutation.createBook, 'function')
+})

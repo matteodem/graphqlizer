@@ -6,6 +6,23 @@ module.exports = {
     delete: true,
   },
 
+  inputSimpleSchema: new SimpleSchema({
+    username: {
+      type: String,
+    },
+    age: {
+      type: Number,
+    },
+    firstName: {
+      type: String,
+      optional: true,
+    },
+    lastName: {
+      type: String,
+      optional: true,
+    },
+  }),
+
   fieldsConfig: {
     inputFields: {
       username: {

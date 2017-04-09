@@ -13,7 +13,7 @@ Package.onUse(function(api) {
 })
 
 Package.onTest(function(api) {
-  api.use(['ecmascript', 'tinytest', 'modules'])
+  api.use(['ecmascript', 'tinytest', 'modules', 'aldeed:simple-schema@1.5.3'])
   api.use('matteodem:graphqlizer')
   api.addFiles([
     './tests/TypeDefGeneratorTest.js',
