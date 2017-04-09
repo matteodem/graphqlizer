@@ -14,6 +14,7 @@ type User {
   username: String!
   fullName: String
   age: Int
+  numbers: [Int]
 }
 
 input UserInput {
@@ -51,6 +52,7 @@ type User {
   username: String!
   fullName: String
   age: Int
+  numbers: [Int]
 }
 
 input UserInput {
@@ -83,6 +85,7 @@ type User {
   username: String!
   fullName: String
   age: Int
+  numbers: [Int]
 }
 
 input UserInput {

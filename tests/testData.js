@@ -52,6 +52,9 @@ module.exports = {
       age: {
         type: 'Int',
       },
+      numbers: {
+        type: '[Int]',
+      },
     },
   }
 }

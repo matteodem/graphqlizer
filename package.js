@@ -18,5 +18,6 @@ Package.onTest(function(api) {
   api.addFiles([
     './tests/TypeDefGeneratorTest.js',
     './tests/ResolversGeneratorTest.js',
+    './tests/TypeFieldsStructureMapperTest.js',
   ], 'server')
 })
