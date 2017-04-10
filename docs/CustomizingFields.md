@@ -1,7 +1,7 @@
 # Customizing fields
 
 Similiar to [related data](./Relationships.md) you can use fields configuration to
-add, remove or change how your GraphQL backend is structured.
+add, remove or change how your GraphQL types are structured.
 
 ```js
 import { createCollectionSchema } from 'meteor/easy:graphqlizer'
