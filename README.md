@@ -3,8 +3,8 @@
 Make your meteor mongo collections accessible over a graphql endpoint.
 
 * Generates simple type definitions + resolvers
-* Uses `check` to validate arguments
-* Incrementally adoptable and customizable
+* Uses `check` and SimpleSchema to validate arguments
+* Great for prototyping and beyond
 
 ```js
 import {
