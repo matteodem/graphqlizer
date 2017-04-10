@@ -14,7 +14,7 @@ const typeFields = {
   },
 }
 
-const alienSchema = createCollectionSchema({ 
+const userSchema = createCollectionSchema({ 
   type: 'User',
   collection: UserCollection,
   schema: {
@@ -32,3 +32,6 @@ and when fetched through a query the `resolve` method is used to display the lis
 for the current user. Notice that the `[User]` is the field description that's directly used in the 
 type definition and the resolve function for the resolver. 
 You can also exclude fields from your simple schema by setting the value of the field to `false`.
+
+To have more details on the `fields` configuration, take a look at the [Customizing fields](./CustomizingFields.md)
+doc.
