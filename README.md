@@ -11,26 +11,17 @@ import {
   createCollectionSchema,
   generateTypeDefsAndResolvers,
 } from 'meteor/easy:graphqlizer'
-import { createApolloServer } from 'meteor/apollo'
-import { makeExecutableSchema } from 'graphql-tools'
 import { AlienCollection, AlienSimpleSchema } from '{...}'
 
-const userSchema = createCollectionSchema({ 
+const alienSchema = createCollectionSchema({ 
   type: 'Alien',
   collection: AlienCollection,
   schema: AlienSimpleSchema,
 })
 
-const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
-  schemas: [userSchema],
+export const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
+  schemas: [alienSchema],
 })
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
-
-createApolloServer(req => ({ schema }), { graphiql: true })
 ```
 
 ## How to install
