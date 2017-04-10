@@ -24,6 +24,8 @@ export const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
 })
 ```
 
+This package does not fully abstract GraphQL, so be sure to learn about it so that you have the needed vocabulary and knowledge to profit from this package. The GraphQL site has a cool [text based introduction](http://graphql.org/learn/) and if you're a visual kind of person like me, you can check out my [introduction screencast](matteos-tech-courses.thinkific.com).
+
 ## How to install
 
 ```bash
