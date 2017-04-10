@@ -35,6 +35,37 @@ meteor add apollo aldeed:simple-schema easy:graphqlizer
 
 ## How to use
 
+Graphqlizer uses [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to generate the resolvers and type definitions. The most basic configuration requires you to set the mongo `collection`, a `key` to identify your data and a simple `schema` that is used for input and type validation.
+
+```js
+import { createCollectionSchema } from 'meteor/easy:graphqlizer'
+import { UserSchema } from '{...}'
+
+const alienSchema = createCollectionSchema({ 
+  type: 'User',
+  collection: Meteor.users,
+  schema: UserSchema,
+})
+```
+
+Graphqlizer makes great use of the provided simple schema configuration to infer the graphql type fields (`Int`, `Float` etc) and if it's optional or required (`!`). It is possible to be more granular by providing an input and type simple schema to define the graphql fields.
+
+```js
+import { createCollectionSchema } from 'meteor/easy:graphqlizer'
+import { UserTypeSchema, UserInputSchema } from '{...}'
+
+const alienSchema = createCollectionSchema({ 
+  type: 'User',
+  collection: UserCollection,
+  schema: {
+    type: UserTypeSchema, // typeof SimpleSchema
+    input: UserInputSchema, // typeof SimpleSchema
+  },
+})
+```
+
 ## Further reading
+
+You can read on following topics to see how to handle related nested data, custom fields and how to customize your GraphQL Api as your app grows. 
 
 * Relationships
