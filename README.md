@@ -70,4 +70,4 @@ const alienSchema = createCollectionSchema({
 
 You can read on following topics to see how to handle related nested data, custom fields and how to customize your GraphQL Api as your app grows. 
 
-* Relationships
+* [Relationships - How to handle related data](./docs/Relationships.md)
