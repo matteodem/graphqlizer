@@ -19,7 +19,7 @@ const alienSchema = createCollectionSchema({
   schema: AlienSimpleSchema,
 })
 
-export const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
+const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
   schemas: [alienSchema],
 })
 ```
@@ -71,6 +71,36 @@ const alienSchema = createCollectionSchema({
   },
 })
 ```
+
+To actually have access to your alien data in your graphql app you 
+have to use the `generateTypeDefsAndResolvers`
+function to generate the final typeDefs and resolvers to create the final GraphQL schema.
+
+```js
+import { 
+  createCollectionSchema,
+  generateTypeDefsAndResolvers
+} from 'meteor/easy:graphqlizer'
+import { createApolloServer } from 'meteor/apollo'
+import { makeExecutableSchema } from 'graphql-tools'
+
+// ...
+
+const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
+  schemas: [alienSchema],
+})
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+})
+
+createApolloServer({ schema, graphiql: true })
+```
+
+Notice that the `generateTypeDefsAndResolvers` expects a list of graphqlizer schemas
+to generate the type definitions and resolvers. You can cross reference your collections
+by using custom fields configuration (see the further reading section).
 
 ## Further reading
 
