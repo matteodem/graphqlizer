@@ -24,7 +24,10 @@ export const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
 })
 ```
 
-This package does not fully abstract GraphQL, so be sure to learn about it so that you have the needed vocabulary and knowledge to profit from this package. The GraphQL site has a cool [text based introduction](http://graphql.org/learn/) and if you're a visual kind of person like me, you can check out my [introduction screencast](matteos-tech-courses.thinkific.com).
+This package does not fully abstract GraphQL, so be sure to learn about it so that you have the
+needed vocabulary and knowledge to profit from this package. The GraphQL site has a
+cool [text based introduction](http://graphql.org/learn/) and if you're a visual kind of person like me, 
+you can check out my [introduction screencast](https://matteos-tech-courses.thinkific.com/courses/introduction-to-graphql).
 
 ## How to install
 
@@ -50,7 +53,10 @@ const alienSchema = createCollectionSchema({
 })
 ```
 
-Graphqlizer makes great use of the provided simple schema configuration to infer the graphql type fields (`Int`, `Float` etc) and if it's optional or required (`!`). It is possible to be more granular by providing an input and type simple schema to define the graphql fields.
+Graphqlizer uses the provided simple schema configuration to infer the 
+graphql type fields (`Int`, `Float` etc) and if it's optional or required (`!`). 
+It is possible to be more granular by providing an input and type simple schema to 
+define the graphql fields.
 
 ```js
 import { createCollectionSchema } from 'meteor/easy:graphqlizer'
