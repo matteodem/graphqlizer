@@ -72,9 +72,9 @@ const alienSchema = createCollectionSchema({
 })
 ```
 
-To actually have access to your alien data in your graphql api you 
+To actually have access to your alien data you 
 have to use the `generateTypeDefsAndResolvers`
-function to generate the final typeDefs and resolvers to create the final GraphQL schema.
+function to generate the final typeDefs and resolvers to create the GraphQL schema.
 
 ```js
 import { 
