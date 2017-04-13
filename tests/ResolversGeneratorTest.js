@@ -29,6 +29,9 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
       find(selector, opts) {
         test.equal(opts.limit, 10)
         test.equal(opts.skip, 5)
+        test.equal(this.graphqlContext.userId, 'wazooba')
+        test.equal(this.graphqlFilters[0].key, 'category')
+        test.equal(this.graphqlFilters[0].value, 'woww')
 
         return { fetch: () => 'listBook' }
       },
@@ -53,7 +56,8 @@ Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
   test.equal(
     resolvers.Query.listBook(
       null,
-      { limit: 10, offset: 5 },
+      { limit: 10, offset: 5, filters: [{ key: 'category', value: 'woww' }] },
+      { userId: 'wazooba' },
     ),
     'listBook',
   )
