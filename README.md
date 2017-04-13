@@ -108,4 +108,5 @@ You can read about following topics to learn more.
 
 * [Relationships - How to handle nested related data](./docs/Relationships.md)
 * [Customizing fields - Changing input / type field definitions](./docs/CustomizingFields.md)
+* [Collection methods - Adjusting logic on CRUD operations](./docs/CollectionMethods.md)
 * [Going Beyond CRUD - Customizing mutations and queries](./docs/BeyondCRUD.md)
