@@ -1,0 +1,32 @@
+{
+  "name": "meteor-graphqlizer",
+  "version": "0.1.0",
+  "description": "Make your meteor mongo collections accessible over a graphql endpoint",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteodem/graphqlizer.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/matteodem/graphqlizer",
+  "dependencies": {
+    "apollo-client": "^1.0.0",
+    "body-parser": "^1.16.1",
+    "express": "^4.14.0",
+    "graphql": "^0.9.1",
+    "graphql-server-express": "^0.6.0",
+    "graphql-tools": "^0.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.16.1",
+    "eslint-import-resolver-meteor": "^0.3.3",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-meteor": "4.0.0",
+    "eslint-plugin-prettier": "^2.0.1",
+    "isomorphic-fetch": "^2.2.1",
+    "prettier": "^0.20.0",
+    "spacejam": "^1.6.1"
+  }
+}
