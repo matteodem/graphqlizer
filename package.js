@@ -8,13 +8,14 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.4.3.2')
-  api.use(['ecmascript', 'check', 'apollo@0.7.2', 'aldeed:simple-schema@1.5.3'])
+  api.use(['ecmascript', 'check', 'aldeed:simple-schema@1.5.3'], 'server')
+  api.use(['apollo'], 'server', { weak: true })
   api.mainModule('./lib/index.js', 'server')
 })
 
 Package.onTest(function(api) {
-  api.use(['ecmascript', 'tinytest', 'modules', 'aldeed:simple-schema@1.5.3'])
-  api.use('easy:graphqlizer')
+  api.use(['ecmascript', 'tinytest', 'modules', 'aldeed:simple-schema@1.5.3'], 'server')
+  api.use('easy:graphqlizer', 'server')
   api.addFiles([
     './tests/TypeDefGeneratorTest.js',
     './tests/ResolversGeneratorTest.js',

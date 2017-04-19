@@ -12,5 +12,5 @@ before_install:
    - curl https://install.meteor.com | /bin/sh
 before_script:
   - npm install
-script: 
+script:
   - spacejam test-packages ./
