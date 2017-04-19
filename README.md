@@ -29,6 +29,8 @@ needed vocabulary and knowledge to profit from this package. The GraphQL site ha
 cool [text based introduction](http://graphql.org/learn/) and if you're a visual kind of person like me, 
 you can check out my [introduction screencast](https://matteos-tech-courses.thinkific.com/courses/introduction-to-graphql).
 
+If you want a simple usage example check out the [test app](https://github.com/matteodem/graphqlizer-test-app).
+
 ## How to install
 
 ```bash
