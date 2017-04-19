@@ -8,6 +8,7 @@ cache:
 
 before_install:
    - npm install -g spacejam
+   - export PATH="$HOME/.meteor:$PATH"
    - curl https://install.meteor.com | /bin/sh
 before_script:
   - npm install
