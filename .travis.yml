@@ -1,9 +1,15 @@
 language: node_js
 node_js:
   - "4.8.1"
+cache:
+   directories:
+      - node_modules
+      - $HOME/.meteor/
+
 before_install:
-  - "curl https://install.meteor.com | /bin/sh"
-  - export PATH="$HOME/.meteor:$PATH"
-  - "npm install -g spacejam"
-  
-script: "spacejam test-packages ./"
+   - npm install -g spacejam
+   - curl https://install.meteor.com | /bin/sh
+before_script:
+  - npm install
+script: 
+  - spacejam test-packages ./
