@@ -1,0 +1,6 @@
+engines:
+  eslint:
+    enabled: true
+    checks:
+      comma-dangle:
+        enabled: false
