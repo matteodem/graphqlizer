@@ -1,5 +1,7 @@
-# graphqlizer [![Build Status](https://travis-ci.org/matteodem/graphqlizer.svg?branch=master)](https://travis-ci.org/matteodem/graphqlizer)
+# graphqlizer 
 
+[![Build Status](http://img.shields.io/travis/matteodem/graphqlizer.svg)](https://travis-ci.org/matteodem/graphqlizer)
+[![Code Climate](http://img.shields.io/travis/codeclimate/matteodem/graphqlizer.svg)](https://codeclimate.com/github/matteodem/graphqlizer)
 Make your meteor mongo collections accessible over a graphql endpoint.
 
 * Generates simple type definitions + resolvers
