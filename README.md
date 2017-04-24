@@ -1,7 +1,7 @@
 # graphqlizer 
 
 [![Build Status](http://img.shields.io/travis/matteodem/graphqlizer.svg)](https://travis-ci.org/matteodem/graphqlizer)
-[![Code Climate](http://img.shields.io/codeclimate/matteodem/graphqlizer.svg)](https://codeclimate.com/github/matteodem/graphqlizer)
+[![Code Climate](https://img.shields.io/codeclimate/github/matteodem/graphqlizer.svg)](https://codeclimate.com/github/matteodem/graphqlizer)
 
 Make your meteor mongo collections accessible over a graphql endpoint.
 
