@@ -7,7 +7,7 @@
     "url": "git+https://github.com/matteodem/graphqlizer.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "homepage": "https://github.com/matteodem/graphqlizer",
   "dependencies": {
     "apollo-client": "^1.0.0",
