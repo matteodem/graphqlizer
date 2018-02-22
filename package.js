@@ -17,9 +17,11 @@ Package.onTest(function(api) {
   api.use(['ecmascript', 'tinytest', 'modules', 'aldeed:simple-schema@1.5.3'], 'server')
   api.use('easy:graphqlizer', 'server')
   api.addFiles([
-    './tests/TypeDefGeneratorTest.js',
+    './tests/TypeDefGeneratorTest.js', // deprecated
     './tests/ResolversGeneratorTest.js',
     './tests/TypeFieldsStructureMapperTest.js',
     './tests/GraphqlCollectionConfigCreatorTest.js',
+    './tests/TypeDefApiTest.js',
+    './tests/ResolverApiTest.js',
   ], 'server')
 })
