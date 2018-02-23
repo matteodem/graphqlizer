@@ -38,6 +38,16 @@ module.exports = {
     findOne() {
       return 'getBook'
     },
+    simpleSchema() {
+      return new SimpleSchema({
+        age: {
+          type: Number,
+        },
+        awesomeName: {
+          type: String,
+        },
+      })
+    },
   }),
 
   inputSimpleSchema: new SimpleSchema({
