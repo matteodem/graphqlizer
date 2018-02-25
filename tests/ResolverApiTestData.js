@@ -1,4 +1,7 @@
-export const customSchema = new SimpleSchema({
+const customSchema = new SimpleSchema({
+  _id: {
+    type: String,
+  },
   age: {
     type: Number,
   },
@@ -14,24 +17,27 @@ export const customSchema = new SimpleSchema({
   },
 })
 
-export const fakeCollection = {
+const fakeCollection = {
     insert(doc) {
-      return ['createBook', doc]
+      return doc._id
     },
     update(selector, updateDoc) {
-      return ['updateBook', selector, updateDoc]
+      return 'updated'
     },
     remove(selector) {
-      return ['deleteBook', selector]
+      return 'removed'
     },
     find(selector, opts) {
       return { fetch: () => ['listBook', selector, opts] }
     },
-    findOne() {
-      return 'getBook'
+    findOne(arg) {
+      return ['getBook', arg]
     },
     simpleSchema() {
       return new SimpleSchema({
+        _id: {
+          type: String,
+        },
         age: {
           type: Number,
         },
@@ -41,3 +47,8 @@ export const fakeCollection = {
       })
     },
   }
+
+module.exports = {
+  customSchema,
+  fakeCollection,
+}

@@ -11,16 +11,12 @@ Make your meteor mongo collections accessible over a graphql endpoint.
 
 ```js
 import {
-  createCollectionSchema,
+  crud,
   generateTypeDefsAndResolvers,
 } from 'meteor/easy:graphqlizer'
 import { AlienCollection, AlienSimpleSchema } from '{...}'
 
-const alienSchema = createCollectionSchema({ 
-  type: 'Alien',
-  collection: AlienCollection,
-  schema: AlienSimpleSchema,
-})
+const alienSchema = crud('Alien', AlienCollection)
 
 const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
   schemas: [alienSchema],
@@ -45,45 +41,28 @@ meteor add apollo aldeed:simple-schema easy:graphqlizer
 
 ## How to use
 
-Graphqlizer uses [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to generate the resolvers and type definitions. The most basic configuration requires you to set the mongo `collection`, a `key` to identify your data and a simple `schema` that is used for input and type validation.
+Graphqlizer uses [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to generate the resolvers and type definitions. 
+The most basic configuration requires you to set the mongo `collection` and a `key` to identify your data.
 
 ```js
-import { createCollectionSchema } from 'meteor/easy:graphqlizer'
-import { UserSchema } from '{...}'
+import { crud } from 'meteor/easy:graphqlizer'
+import { CarCollection} from '{...}'
 
-const alienSchema = createCollectionSchema({ 
-  type: 'User',
-  collection: Meteor.users,
-  schema: UserSchema,
-})
+const alienSchema = crud('Car', CarCollection) // or
+const otherAlienSchema = crud('Car', CarCollection, CustomCarSimpleSchema)
 ```
 
-Graphqlizer uses the provided simple schema configuration to infer the 
+You can optionally specify a custom schema as the 3rd argument. 
+Graphqlizer uses the inferred or provided simple schema configuration to infer the 
 graphql type fields (`Int`, `Float` etc) and if it's optional or required (`!`). 
-It is possible to be more granular by providing an input and type simple schema to 
-define the graphql fields.
 
-```js
-import { createCollectionSchema } from 'meteor/easy:graphqlizer'
-import { UserTypeSchema, UserInputSchema } from '{...}'
-
-const alienSchema = createCollectionSchema({ 
-  type: 'User',
-  collection: UserCollection,
-  schema: {
-    type: UserTypeSchema, // typeof SimpleSchema
-    input: UserInputSchema, // typeof SimpleSchema
-  },
-})
-```
-
-To actually have access to your alien data you 
+To actually have access to your data you 
 have to use the `generateTypeDefsAndResolvers`
 function to generate the final typeDefs and resolvers to create the GraphQL schema.
 
 ```js
 import { 
-  createCollectionSchema,
+  crud,
   generateTypeDefsAndResolvers
 } from 'meteor/easy:graphqlizer'
 import { createApolloServer } from 'meteor/apollo'
@@ -111,7 +90,7 @@ by using custom fields configuration (see the further reading section).
 
 You can read about following topics to learn more.
 
+* [Customizing fields - Changing field definitions](./docs/CustomizingFields.md)
 * [Relationships - How to handle nested related data](./docs/Relationships.md)
-* [Customizing fields - Changing input / type field definitions](./docs/CustomizingFields.md)
 * [Collection methods - Adjusting logic on CRUD operations](./docs/CollectionMethods.md)
 * [Going Beyond CRUD - Customizing mutations and queries](./docs/BeyondCRUD.md)

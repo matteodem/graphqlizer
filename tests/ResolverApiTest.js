@@ -9,43 +9,41 @@ import {
 
 Tinytest.add('Graphqlizer - Public API - resolver', function (test) {
   test.equal(
-    resolver.create('Book', fakeCollection)(
+    resolver.create(fakeCollection)(
       null,
-      { 
-        data: { 
+      {
+        data: {
+          _id: 'bookIdNice',
           age: 21,
           awesomeName: 'matt',
         },
       },
-    ), 
-    ['createBook', { age: 21, awesomeName: 'matt' }],
+    ),
+    ['getBook', { _id: 'bookIdNice' }],
   )
-  
+
   test.equal(
-    resolver.create('Book', fakeCollection, customSchema)(
+    resolver.create(fakeCollection, customSchema)(
        null,
-      { 
-        data: { 
+      {
+        data: {
+          _id: 'bookIdNiceWoo',
           age: 21,
           awesomeName: 'matt',
           secondAwesomeName: 'mattaya',
           isAwesome: true,
         },
       },
-    ), 
-    ['createBook', { 
-      age: 21,
-      awesomeName: 'matt',
-      secondAwesomeName: 'mattaya',
-      isAwesome: true,
-    }],
+    ),
+    ['getBook', { _id: 'bookIdNiceWoo' }],
   )
-  
+
   try {
-    resolver.create('Book', fakeCollection, customSchema)(
+    resolver.create(fakeCollection, customSchema)(
        null,
-      { 
-        data: { 
+      {
+        data: {
+          _id: 'bookIdNiceWoo2',
           age: 21,
           awesomeName: 'matt',
         },
@@ -54,4 +52,35 @@ Tinytest.add('Graphqlizer - Public API - resolver', function (test) {
     test.fail()
   } catch (e) {
   }
+
+  test.equal(
+    resolver.get(fakeCollection)(
+      null,
+      {
+        _id: 'bookIdNice',
+      },
+    ),
+    ['getBook', { _id: 'bookIdNice' }],
+  )
+})
+Tinytest.add('Graphqlizer - Public API - resolvers', function (test) {
+  test.equal(
+    resolvers('AwesomeBook', fakeCollection).getAwesomeBook(
+      null,
+      {
+        _id: 'bookIdNice111',
+      },
+    ),
+    ['getBook', { _id: 'bookIdNice111' }],
+  )
+
+  test.equal(
+    resolvers('AwesomeBook', fakeCollection).deleteAwesomeBook(
+      null,
+      {
+        _id: 'bookIdNice111',
+      },
+    ),
+    ['getBook', { _id: 'bookIdNice111' }],
+  )
 })

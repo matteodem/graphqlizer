@@ -1,6 +1,6 @@
 Package.describe({
   name: 'easy:graphqlizer',
-  version: '0.1.0',
+  version: '0.1.1',
   summary: 'Make your mongo collections accessible over a graphql endpoint',
   git: 'https://github.com/matteodem/graphqlizer',
   documentation: 'README.md',

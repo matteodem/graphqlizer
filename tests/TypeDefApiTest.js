@@ -43,23 +43,23 @@ Tinytest.add('Graphqlizer - Public API - typeDef', function (test) {
   species: String
 }`)
 
-  test.equal(typeDef.mutationCreate('Alien'), `extend type Mutation {
+  test.equal(typeDef.create('Alien'), `extend type Mutation {
   createAlien(data: AlienInput!): Alien
 }`)
 
-  test.equal(typeDef.mutationUpdate('Alien'), `extend type Mutation {
+  test.equal(typeDef.update('Alien'), `extend type Mutation {
   updateAlien(_id: String!, data: AlienInput!): Alien
 }`)
 
-  test.equal(typeDef.mutationDelete('Alien'), `extend type Mutation {
+  test.equal(typeDef.delete('Alien'), `extend type Mutation {
   deleteAlien(_id: String!): Alien
 }`)
 
-  test.equal(typeDef.queryGet('Alien'), `extend type Query {
+  test.equal(typeDef.get('Alien'), `extend type Query {
   getAlien(_id: String): Alien
 }`)
 
-  test.equal(typeDef.queryList('Alien'), `extend type Query {
+  test.equal(typeDef.list('Alien'), `extend type Query {
   listAlien(limit: Int, offset: Int): [Alien]
 }`)
 })
