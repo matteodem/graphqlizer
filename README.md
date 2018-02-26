@@ -10,11 +10,8 @@ Make your meteor mongo collections accessible over a graphql endpoint.
 * Great for prototyping and beyond
 
 ```js
-import {
-  crud,
-  generateTypeDefsAndResolvers,
-} from 'meteor/easy:graphqlizer'
-import { AlienCollection, AlienSimpleSchema } from '{...}'
+import { crud, generateTypeDefsAndResolvers } from 'meteor/easy:graphqlizer'
+import { AlienCollection } from '{...}'
 
 const alienSchema = crud('Alien', AlienCollection)
 
@@ -46,7 +43,7 @@ The most basic configuration requires you to set the mongo `collection` and a `k
 
 ```js
 import { crud } from 'meteor/easy:graphqlizer'
-import { CarCollection} from '{...}'
+import { CarCollection } from '{...}'
 
 const alienSchema = crud('Car', CarCollection) // or
 const otherAlienSchema = crud('Car', CarCollection, CustomCarSimpleSchema)
@@ -61,10 +58,7 @@ have to use the `generateTypeDefsAndResolvers`
 function to generate the final typeDefs and resolvers to create the GraphQL schema.
 
 ```js
-import { 
-  crud,
-  generateTypeDefsAndResolvers
-} from 'meteor/easy:graphqlizer'
+import { crud, generateTypeDefsAndResolvers } from 'meteor/easy:graphqlizer'
 import { createApolloServer } from 'meteor/apollo'
 import { makeExecutableSchema } from 'graphql-tools'
 
