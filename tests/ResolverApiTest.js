@@ -65,7 +65,7 @@ Tinytest.add('Graphqlizer - Public API - resolver', function (test) {
 })
 Tinytest.add('Graphqlizer - Public API - resolvers', function (test) {
   test.equal(
-    resolvers('AwesomeBook', fakeCollection).getAwesomeBook(
+    resolvers('AwesomeBook', fakeCollection).Query.getAwesomeBook(
       null,
       {
         _id: 'bookIdNice111',
@@ -75,7 +75,7 @@ Tinytest.add('Graphqlizer - Public API - resolvers', function (test) {
   )
 
   test.equal(
-    resolvers('AwesomeBook', fakeCollection).deleteAwesomeBook(
+    resolvers('AwesomeBook', fakeCollection).Mutation.deleteAwesomeBook(
       null,
       {
         _id: 'bookIdNice111',
