@@ -1,44 +1,12 @@
 import { generateResolvers } from '../lib/ResolversGenerator'
-import { defaultCrud, fieldsConfig, inputSimpleSchema } from './testData'
+import { defaultCrud, fieldsConfig, inputSimpleSchema, fakeCollectionForResolvers } from './testData'
 
 Tinytest.add('Graphqlizer - ResolversGenerator - list', function (test) {
   const resolvers = generateResolvers({
     type: 'Book',
     crud: defaultCrud,
     inputSchema: inputSimpleSchema,
-    collection: {
-      insert(doc) {
-        test.equal(doc.username, 'matt')
-        test.equal(doc.age, 21)
-        test.equal(doc.firstName, 'mattaya')
-
-        return 'createBook'
-      },
-      update(selector, updateDoc) {
-        test.equal(selector._id, 'idDocUpdate')
-        test.equal(updateDoc.$set.username, 'mattnew')
-        test.equal(updateDoc.$set.age, 20)
-
-        return 'updateBook'
-      },
-      remove(selector) {
-        test.equal(selector._id, 'idDocToRemove')
-
-        return 'deleteBook'
-      },
-      find(selector, opts) {
-        test.equal(opts.limit, 10)
-        test.equal(opts.skip, 5)
-        test.equal(this.graphqlContext.userId, 'wazooba')
-        test.equal(this.graphqlFilters[0].key, 'category')
-        test.equal(this.graphqlFilters[0].value, 'woww')
-
-        return { fetch: () => 'listBook' }
-      },
-      findOne() {
-        return 'getBook'
-      },
-    },
+    collection: fakeCollectionForResolvers(test),
     ...fieldsConfig,
   })
 

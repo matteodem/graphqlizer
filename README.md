@@ -1,7 +1,7 @@
 # graphqlizer 
 
 [![Build Status](http://img.shields.io/travis/matteodem/graphqlizer.svg)](https://travis-ci.org/matteodem/graphqlizer)
-[![Code Climate](https://img.shields.io/codeclimate/github/matteodem/graphqlizer.svg)](https://codeclimate.com/github/matteodem/graphqlizer)
+[![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/0bf617660f13359a56b5/maintainability)](https://codeclimate.com/github/matteodem/graphqlizer/maintainability)
 
 Make your meteor mongo collections accessible over a graphql endpoint.
 
@@ -10,17 +10,10 @@ Make your meteor mongo collections accessible over a graphql endpoint.
 * Great for prototyping and beyond
 
 ```js
-import {
-  createCollectionSchema,
-  generateTypeDefsAndResolvers,
-} from 'meteor/easy:graphqlizer'
-import { AlienCollection, AlienSimpleSchema } from '{...}'
+import { crud, generateTypeDefsAndResolvers } from 'meteor/easy:graphqlizer'
+import { AlienCollection } from '{...}'
 
-const alienSchema = createCollectionSchema({ 
-  type: 'Alien',
-  collection: AlienCollection,
-  schema: AlienSimpleSchema,
-})
+const alienSchema = crud('Alien', AlienCollection)
 
 const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
   schemas: [alienSchema],
@@ -45,47 +38,28 @@ meteor add apollo aldeed:simple-schema easy:graphqlizer
 
 ## How to use
 
-Graphqlizer uses [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to generate the resolvers and type definitions. The most basic configuration requires you to set the mongo `collection`, a `key` to identify your data and a simple `schema` that is used for input and type validation.
+Graphqlizer uses [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to generate the resolvers and type definitions. 
+The most basic configuration requires you to pass the mongo collection and a name (TitleCase) to identify your data.
 
 ```js
-import { createCollectionSchema } from 'meteor/easy:graphqlizer'
-import { UserSchema } from '{...}'
+import { crud } from 'meteor/easy:graphqlizer'
+import { CarCollection } from '{...}'
 
-const alienSchema = createCollectionSchema({ 
-  type: 'User',
-  collection: Meteor.users,
-  schema: UserSchema,
-})
+const alienSchema = crud('Car', CarCollection)
+// or with a custom schema
+const otherAlienSchema = crud('Car', CarCollection, CustomCarSimpleSchema)
 ```
 
-Graphqlizer uses the provided simple schema configuration to infer the 
+You can optionally specify a custom schema as the 3rd argument. 
+Graphqlizer uses the simple schema configuration to infer the 
 graphql type fields (`Int`, `Float` etc) and if it's optional or required (`!`). 
-It is possible to be more granular by providing an input and type simple schema to 
-define the graphql fields.
 
-```js
-import { createCollectionSchema } from 'meteor/easy:graphqlizer'
-import { UserTypeSchema, UserInputSchema } from '{...}'
-
-const alienSchema = createCollectionSchema({ 
-  type: 'User',
-  collection: UserCollection,
-  schema: {
-    type: UserTypeSchema, // typeof SimpleSchema
-    input: UserInputSchema, // typeof SimpleSchema
-  },
-})
-```
-
-To actually have access to your alien data you 
+To actually have access to your data you 
 have to use the `generateTypeDefsAndResolvers`
 function to generate the final typeDefs and resolvers to create the GraphQL schema.
 
 ```js
-import { 
-  createCollectionSchema,
-  generateTypeDefsAndResolvers
-} from 'meteor/easy:graphqlizer'
+import { crud, generateTypeDefsAndResolvers } from 'meteor/easy:graphqlizer'
 import { createApolloServer } from 'meteor/apollo'
 import { makeExecutableSchema } from 'graphql-tools'
 
@@ -104,14 +78,71 @@ createApolloServer({ schema, graphiql: true })
 ```
 
 Notice that the `generateTypeDefsAndResolvers` expects a list of graphqlizer schemas
-to generate the type definitions and resolvers. You can cross reference your collections
-by using custom fields configuration (see the further reading section).
+to generate the type definitions and resolvers.
 
-## Further reading
+### Beyond CRUD
 
-You can read about following topics to learn more.
+Anytime you need to go beyond the basic CRUD you can use the following composable methods to extend your schema:
 
-* [Relationships - How to handle nested related data](./docs/Relationships.md)
-* [Customizing fields - Changing input / type field definitions](./docs/CustomizingFields.md)
-* [Collection methods - Adjusting logic on CRUD operations](./docs/CollectionMethods.md)
-* [Going Beyond CRUD - Customizing mutations and queries](./docs/BeyondCRUD.md)
+* `resolvers(name, Collection[, CustomSimpleSchema]) => {resolverObject}` CRUD resolvers
+* `typeDefs(name, SimpleSchema) => [String]` CRUD type definitions
+* `resolver.{create|update|delete|get|list}(Collection[, CustomSimpleSchema]) => Function` Specific resolver function
+* `typeDef.{type|input|create|update|delete|get|list}(name, SimpleSchema) => String` Specific type definition
+
+```js
+import { resolvers, typeDefs } from 'meteor/easy:graphqlizer'
+
+export default {
+  resolvers: {
+    ...resolvers('Book', BookCollection),
+    Book: {
+      relatedMovies (root, args) {
+        return /* ... */
+      },
+    },
+  },
+  typeDefs: {
+    ...typeDefs('Book', BookCollection.simpleSchema()),
+    `
+    extend type Book {
+      relatedMovies: [Movie]   
+    }
+    `
+  },
+}
+```
+
+In the example above we extend `Book` with an additional field called `relatedMovies`. Be aware though that if you want to **add a new Query or Mutation** you need to use a deep merge function!
+
+If you want to go even more granular you can use the `resolver` and `typeDef` functions.
+
+```js
+import { resolver, typeDef } from 'meteor/easy:graphqlizer'
+
+export default {
+  resolvers: {
+    Query: {
+      listBook: resolver.list(BookCollection),
+      findBookFromFriends (root, args) {
+        return /* ... */      
+      }
+    },
+    Mutation: {
+      createBook: resolver.create(BookCollection),
+    }
+  },
+  typeDefs: [
+    typeDef.type('Book', BookCollection.simpleSchema()),
+    typeDef.input('Book', BookCollection.simpleSchema()),
+    typeDef.list('Book'),
+    typeDef.create('Book'),
+    `
+    extend type Query {
+      findBookFromFriends: [Book]
+    }
+    `
+  ],
+}
+```
+
+This way you can mix and match type definitions and resolvers and if your app grows more complex decouple it from graphqlizer completely, without having to refactor code.

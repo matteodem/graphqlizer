@@ -1,5 +1,6 @@
 import {
   mapSchemaToTypeFields,
+  registerType,
 } from '../lib/TypeFieldsStructureMapper'
 
 const CompanySchema = new SimpleSchema({
@@ -74,4 +75,28 @@ Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - Complex type', function 
   } catch(e) {
     test.ok()
   }
+})
+
+Tinytest.add('Graphqlizer - TypeFieldsStructureMapper - registerType', function (test) {
+  try {
+    mapSchemaToTypeFields(new SimpleSchema({
+      awesomeDate: {
+        type: Date,
+      },
+    }))
+    test.fail()
+  } catch(e) {
+    test.ok()
+  }
+
+  registerType(Date, 'Date')
+
+  const mappedFields = mapSchemaToTypeFields(new SimpleSchema({
+    awesomeDate: {
+      type: Date,
+    },
+  }))
+
+  test.equal(mappedFields.awesomeDate.type, 'Date!')
+  test.isUndefined(mappedFields.awesomeDate.resolve)
 })
