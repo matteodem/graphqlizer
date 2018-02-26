@@ -86,7 +86,7 @@ Anytime you need to go beyond the basic CRUD you can use the following composabl
 
 * `resolvers(name, Collection[, CustomSimpleSchema]) => {resolverObject}` CRUD resolvers
 * `typeDefs(name, SimpleSchema) => [String]` CRUD type definitions
-* `resolver.{create|update|delete|get|list}(Collection[, CustomSimpleSchema]) => Function` Specific resolver function
+* `resolver.{create|update|delete|get|list}(Collection[, CustomSimpleSchema]) => Function` Specific resolver
 * `typeDef.{type|input|create|update|delete|get|list}(name, SimpleSchema) => String` Specific type definition
 
 ```js
@@ -101,14 +101,14 @@ export default {
       },
     },
   },
-  typeDefs: {
+  typeDefs: [
     ...typeDefs('Book', BookCollection.simpleSchema()),
     `
     extend type Book {
       relatedMovies: [Movie]   
     }
-    `
-  },
+    `,
+  ],
 }
 ```
 
@@ -125,11 +125,11 @@ export default {
       listBook: resolver.list(BookCollection),
       findBookFromFriends (root, args) {
         return /* ... */      
-      }
+      },
     },
     Mutation: {
       createBook: resolver.create(BookCollection),
-    }
+    },
   },
   typeDefs: [
     typeDef.type('Book', BookCollection.simpleSchema()),
@@ -140,7 +140,7 @@ export default {
     extend type Query {
       findBookFromFriends: [Book]
     }
-    `
+    `,
   ],
 }
 ```
