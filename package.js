@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.4.3.2')
   api.use(['ecmascript', 'check', 'aldeed:simple-schema@1.5.3'], 'server')
-  api.use(['apollo'], 'server', { weak: true })
+  api.use(['apollo@2.0.0'], 'server', { weak: true })
   api.mainModule('./lib/index.js', 'server')
 })
 
