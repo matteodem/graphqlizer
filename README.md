@@ -9,16 +9,7 @@ Make your meteor mongo collections accessible over a graphql endpoint.
 * Uses `check` and SimpleSchema to validate arguments
 * Great for prototyping and beyond
 
-```js
-import { crud, generateTypeDefsAndResolvers } from 'meteor/easy:graphqlizer'
-import { AlienCollection } from '{...}'
-
-const alienSchema = crud('Alien', AlienCollection)
-
-const { typeDefs, resolvers } = generateTypeDefsAndResolvers({
-  schemas: [alienSchema],
-})
-```
+[![Basic Code Example](/carbon.png)](https://gist.github.com/matteodem/906d8ce765773efcf8520b86b8ab9daa)
 
 This package does not fully abstract GraphQL, so be sure to learn about it so that you have the
 needed vocabulary and knowledge to profit from this package. The GraphQL site has a
