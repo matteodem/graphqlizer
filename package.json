@@ -1,12 +1,12 @@
 {
-  "name": "meteor-graphqlizer",
-  "version": "0.1.0",
+  "name": "@matteodem/meteor-graphqlizer",
+  "version": "1.0.0",
   "description": "Make your meteor mongo collections accessible over a graphql endpoint",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matteodem/graphqlizer.git"
   },
-  "author": "",
+  "author": "Matteo Demicheli",
   "license": "AGPL-3.0",
   "homepage": "https://github.com/matteodem/graphqlizer",
   "publishConfig": { "registry": "https://npm.pkg.github.com/" },
