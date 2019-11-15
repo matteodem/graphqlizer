@@ -9,6 +9,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "homepage": "https://github.com/matteodem/graphqlizer",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "dependencies": {
     "apollo-client": "^1.0.0",
     "body-parser": "^1.16.1",
