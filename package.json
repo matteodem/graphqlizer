@@ -9,14 +9,17 @@
   "author": "Matteo Demicheli",
   "license": "AGPL-3.0",
   "homepage": "https://github.com/matteodem/graphqlizer",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
     "apollo-client": "^1.0.0",
     "body-parser": "^1.16.1",
     "express": "^4.14.0",
     "graphql": "^0.9.1",
     "graphql-server-express": "^0.6.0",
-    "graphql-tools": "^0.11.0"
+    "graphql-tools": "^0.11.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -29,5 +32,10 @@
     "isomorphic-fetch": "^2.2.1",
     "prettier": "^0.20.0",
     "spacejam": "^1.6.1"
-  }
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
